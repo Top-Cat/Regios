@@ -1,25 +1,16 @@
 package me.Adamki11s.Regios;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.Packet;
-
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -30,7 +21,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import org.bukkit.util.config.Configuration;
 
 import couk.Adamki11s.EconomyHandler.EconomyCore;
 import couk.Adamki11s.WorldConfiguration.ConfigurationSettings;
@@ -141,7 +131,6 @@ public class RegiosPlayerListener extends PlayerListener {
 					try {
 						EconomyCore.buyRegion(regionToBuy, price, player, block);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -275,8 +264,6 @@ public class RegiosPlayerListener extends PlayerListener {
 		playerInsideRegion.put(player, false);
 		
 		RegiosBlockListener.playerCanBuild.put(player, false);
-		
-		boolean triedLava = false, triedWater = false;
 		
 		/*if(!player.isOp() || (Regios.hasPermissions && !(Regios.permissionHandler.has(player, "regios.override")))){
 		for(Material material : RegiosFileManager.IllegalBlocks){
@@ -505,10 +492,10 @@ public void onPlayerMove(PlayerMoveEvent event){
 		playerCanEnter.put(player, false);
 		
 		
-		
 		for(i = 1; i <= RegiosFileManager.regionCount; i++){
 			//REGION CHECKS
-			if( (((playerLocation.get(player).getY() <= RegiosFileManager.regiony1[i - 1] + 2) && (playerLocation.get(player).getY() >= RegiosFileManager.regiony2[i - 1] - 1)) || ((playerLocation.get(player).getY() >= RegiosFileManager.regiony1[i - 1] - 1) && (playerLocation.get(player).getY() <= RegiosFileManager.regiony2[i - 1] + 2))) && (((playerLocation.get(player).getZ() <= RegiosFileManager.regionz1[i - 1]) && (playerLocation.get(player).getZ() >= RegiosFileManager.regionz2[i - 1])) || ((playerLocation.get(player).getZ() >= RegiosFileManager.regionz1[i - 1]) && (playerLocation.get(player).getZ() <= RegiosFileManager.regionz2[i - 1])))  &&  (((playerLocation.get(player).getX() <= RegiosFileManager.regionx1[i - 1]) && (playerLocation.get(player).getX() >= RegiosFileManager.regionx2[i - 1])) || ((playerLocation.get(player).getX() >= RegiosFileManager.regionx1[i - 1]) && (playerLocation.get(player).getX() <= RegiosFileManager.regionx2[i - 1]))) && (((playerLocation.get(player).getX() <= RegiosFileManager.regionx1[i - 1]) && (playerLocation.get(player).getX() >= RegiosFileManager.regionx2[i - 1])) || ((playerLocation.get(player).getX() >= RegiosFileManager.regionx1[i - 1]) && (playerLocation.get(player).getX() <= RegiosFileManager.regionx2[i - 1])))   ){
+			Location l = playerLocation.get(player);
+			if( (((l.getBlockY() <= RegiosFileManager.regiony1[i - 1] + 2) && (l.getBlockY() >= RegiosFileManager.regiony2[i - 1] - 1)) || ((l.getBlockY() >= RegiosFileManager.regiony1[i - 1] - 1) && (l.getBlockY() <= RegiosFileManager.regiony2[i - 1] + 2))) && (((l.getBlockZ() <= RegiosFileManager.regionz1[i - 1]) && (l.getBlockZ() >= RegiosFileManager.regionz2[i - 1])) || ((l.getBlockZ() >= RegiosFileManager.regionz1[i - 1]) && (l.getBlockZ() <= RegiosFileManager.regionz2[i - 1])))  &&  (((l.getBlockX() <= RegiosFileManager.regionx1[i - 1]) && (l.getBlockX() >= RegiosFileManager.regionx2[i - 1])) || ((l.getBlockX() >= RegiosFileManager.regionx1[i - 1]) && (l.getBlockX() <= RegiosFileManager.regionx2[i - 1]))) && (((l.getBlockX() <= RegiosFileManager.regionx1[i - 1]) && (l.getBlockX() >= RegiosFileManager.regionx2[i - 1])) || ((l.getBlockX() >= RegiosFileManager.regionx1[i - 1]) && (l.getBlockX() <= RegiosFileManager.regionx2[i - 1])))   ){
 				if(pwn.equalsIgnoreCase(RegiosFileManager.regionWorldName[i - 1])){
 					playerInsideRegion.put(player, true);
 					regionEntryLocation.put(player, player.getLocation());

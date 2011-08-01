@@ -2,7 +2,6 @@ package me.Adamki11s.Regios;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +9,6 @@ import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -95,11 +93,9 @@ public class RegiosFileManager {
 		if(!dbManage.checkTable("economy")){
 			String query = "CREATE TABLE economy ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'regionname' VARCHAR(20), 'owner' VARCHAR(40), 'price' Double);";
 			dbManage.createTable(query);
-			String initialise = "INSERT INTO economy (regionname, owner, price) values ('gfhfsdvmbv', 'null', '0');";
 		}
 
 		if (!dbManage.checkTable("regions")) {
-			Location loc = new Location(Regios.server.getWorld("world"), 0, 0, 0, 0, 0);
 			String query = ("CREATE TABLE regions ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'regionname' VARCHAR(20), 'x1' Double , 'x2' Double , 'y1' Double , 'y2' Double , 'z1' Double , 'z2' Double , 'showwelcome' Byte DEFAULT 1, 'showleave' Byte DEFAULT 1, 'protected' Byte DEFAULT 0, 'prevententry' Byte DEFAULT 0, 'preventexit' Byte DEFAULT 0, 'welcomemsg' VARCHAR(50) ,'leavemsg' VARCHAR(50) , 'owner' VARCHAR(30) , 'healthenabled' Byte DEFAULT 1 , 'exceptions' Byte DEFAULT 0 , 'movementfactor' DOUBLE DEFAULT 1 , 'pvp'  Byte DEFAULT 0 , 'healthregen' Byte DEFAULT 0 , 'prohibitedmobs' Byte DEFAULT 1 , 'world' VARCHAR(50) , 'lsps' Byte DEFAULT 0, 'warps' VARCHAR(200) DEFAULT 'world@0@0@0@0@0');");
 			dbManage.createTable(query); // owner, healthenabled, exceptions,
 											// movementfactor, pvp, healthregen,
@@ -511,7 +507,6 @@ public class RegiosFileManager {
 	public static void inheritProperties(String targetRegion,
 			String regionToInherit, Player player) {
 		doesRegionExist(targetRegion, player);
-		int inheritanceIndex = regionIndex;
 		doesRegionExist(regionToInherit, player);
 		int copyIndex = regionIndex;
 

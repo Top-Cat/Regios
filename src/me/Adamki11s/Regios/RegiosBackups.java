@@ -7,6 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -114,21 +117,20 @@ public class RegiosBackups {
 		} 
 		
 		double volD1, volD2, volD3;
-		volD1 = x1 - x2;
-		volD2 = y1 - y2;
-		volD3 = z1 - z2;
+		volD1 = (x1 - x2) + 1;
+		volD2 = (y1 - y2);
+		volD3 = (z1 - z2) + 1;
 		
 		blockCount = (int) (volD1 * volD2 * volD3);
 		
 		String backupMatrix = blockCount + "|";
-		String matrixArray[] = new String [1000];
+		List<String> matrixArray = new ArrayList<String>();
 		boolean pcentSent[] = new boolean [10];
-		int matrixCount = 1;
 		double pcent;
 		int cntt = 0;
-		for(int x = 0; x2 + x <= x1; x++){
-			for(int y = 0; y2 + y <= y1; y++){
-				for(int z = 0; z2 + z <= z1; z++){
+		for(int x = (int) x2; x <= x1; x++){
+			for(int y = (int) y2; y <= y1; y++){
+				for(int z = (int) z2; z <= z1; z++){
 					cntt++;
 					//player.sendMessage(ChatColor.GREEN + "" + cntt + " : " + blockCount);
 					//pcent = (cntt / blockCount) * 100;
@@ -169,18 +171,18 @@ public class RegiosBackups {
 					
 					
 					if(backupMatrix.length() > 30000){
-						matrixArray[matrixCount - 1] = backupMatrix;
-						matrixCount++;
+						matrixArray.add(backupMatrix);
 						backupMatrix = "";
 					}
-					backupMatrix += constructMatrixID(new Location(world, x2 + x, y2 + y, z2 + z));
+					backupMatrix += constructMatrixID(new Location(world, x, y, z));
 				}	
 			}
 		}
 		String matBuild = "";
-		for(int e = 1; e <= matrixCount; e++){
-			matBuild += matrixArray[e - 1];
+		for(String i : matrixArray){
+			matBuild += i;
 		}
+		matBuild += backupMatrix;
 		writeToFile(region, matBuild, player);
 		threadOccupied = false;
 		matBuild = "";
@@ -281,7 +283,7 @@ public class RegiosBackups {
 	
 	public static void reconstructRegion(World world, int count){
 		try{
-			for(int mx = 1; 1 <= count; mx++){
+			for(int mx = 1; mx <= count; mx++){
 				if(world.getBlockTypeIdAt(locations[mx - 1]) != itemID[mx - 1]){
 					Block b = world.getBlockAt(locations[mx - 1]);
 					b.setTypeId(itemID[mx - 1]);

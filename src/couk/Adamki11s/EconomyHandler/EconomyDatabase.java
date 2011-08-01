@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import com.alta189.sqlLibrary.SQLite.sqlCore;
 import com.iConomy.iConomy;
-import com.iConomy.system.Account;
 import com.iConomy.system.Holdings;
 
 import me.Adamki11s.Regios.RegiosFileManager;

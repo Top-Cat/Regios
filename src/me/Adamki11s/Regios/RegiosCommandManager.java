@@ -1,9 +1,7 @@
 package me.Adamki11s.Regios;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -16,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import couk.Adamki11s.EconomyHandler.EconomyCore;
 import couk.Adamki11s.WorldConfiguration.ConfigurationLoader;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -863,7 +860,6 @@ public class RegiosCommandManager implements CommandExecutor {
 					if(args.length == 3 && args[0].equalsIgnoreCase("mf")){
 						if(RegiosFileManager.doesRegionExist(args[1], player)){
 							if(RegiosFileManager.isOwner(args[1], player)){
-								int fac = 0;
 								if(args[2].equalsIgnoreCase("slow")){
 										RegiosFileManager.pushMovementFactor(args[1], "slow", player);
 										return true;
@@ -1199,7 +1195,6 @@ public class RegiosCommandManager implements CommandExecutor {
 				
 				
 				if(args.length == 1 && (args[0].equalsIgnoreCase("kill"))){
-					Location l = player.getLocation();
 					return true;
 				}
 				

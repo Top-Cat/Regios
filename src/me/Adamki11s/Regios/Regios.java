@@ -2,7 +2,6 @@ package me.Adamki11s.Regios;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -36,7 +35,6 @@ public class Regios extends JavaPlugin {
     //ClassListeners
 	
 	private RegiosScheduler schedule = null;
-	private int taskId = 0;
 	
 	Logger log = Logger.getLogger("Minecraft");
 
@@ -110,7 +108,7 @@ public class Regios extends JavaPlugin {
         
         getCommand("regios").setExecutor(new RegiosCommandManager(this));
         this.schedule = new RegiosScheduler(this);
-        taskId = this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, this.schedule, 1L, 21L * 1);
+        this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, this.schedule, 1L, 21L * 1);
         
         Player[] onlinePs;
         onlinePs = server.getOnlinePlayers();

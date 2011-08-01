@@ -10,14 +10,10 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
-import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 
@@ -47,62 +43,6 @@ public class RegiosBlockListener extends BlockListener{
 	
 	double x1, x2, y1, y2, z1, z2;
 	
-	/*public void onBlockFromTo(BlockFromToEvent event){
-		if(event.getToBlock().getType() == Material.AIR && !blockFlowEvents.contains(event.getToBlock().getLocation())){
-			blockFlowEvents.add(event.getToBlock().getLocation());
-			//blockFlowEvents.add(event.getBlock().getLocation());
-		}
-		
-		Location toLoc = event.getToBlock().getLocation();
-		
-			int count = 0;
-			Block blockFrom = event.getBlock();
-	        Block blockTo = event.getToBlock();
-	        Location from = blockFrom.getLocation(), to = blockTo.getLocation();
-	        
-	      
-			
-				for(Location loc : RegiosBlockListener.blockFlowEvents){
-					count++;
-					for(int i = 1; i <= RegiosFileManager.regionCount; i++){	
-						if(blockFrom.getType() == Material.WATER || blockFrom.getType() == Material.LAVA ||
-						blockTo.getType() == Material.WATER || blockTo.getType() == Material.LAVA){
-						x1 = RegiosFileManager.regionx1[i - 1]; x2 = RegiosFileManager.regionx2[i - 1];
-						y1 = RegiosFileManager.regiony1[i - 1]; y2 = RegiosFileManager.regiony2[i - 1];
-						z1 = RegiosFileManager.regionz1[i - 1]; z2 = RegiosFileManager.regionz2[i - 1];
-						
-						if((   ((x1 == to.getBlockX() || x1 == to.getBlockX() + 1 || x1 == to.getBlockX() - 1) ||  (x2 == to.getBlockX() || x2 == to.getBlockX() + 1 || x2 == to.getBlockX() - 1)) &&
-								((z1 == to.getBlockZ() || z1 == to.getBlockZ() + 1 || z1 == to.getBlockZ() - 1) ||  (z2 == to.getBlockZ() || z2 == to.getBlockZ() + 1 || z2 == to.getBlockZ() - 1))) ||
-								(   ((x1 == from.getBlockX() || x1 == from.getBlockX() + 1 || x1 == from.getBlockX() - 1) ||  (x2 == from.getBlockX() || x2 == from.getBlockX() + 1 || x2 == from.getBlockX() - 1)) &&
-										((z1 == from.getBlockZ() || z1 == from.getBlockZ() + 1 || z1 == from.getBlockZ() - 1) ||  (z2 == from.getBlockZ() || z2 == from.getBlockZ() + 1 || z2 == from.getBlockZ() - 1)))){
-											
-					    clearFluids(i, count, blockTo);
-					    
-						} else {												
-							if(blockFlowEvents.contains(count - 1)){
-								blockFlowEvents.remove(count - 1);
-							}
-						}
-						
-						}
-						
-					}
-					
-				}
-				
-	}*/
-	
-	private void clearFluids(int i, int count, Block blockTo){
-		if(RegiosFileManager.regionProtected[i - 1]){
-			blockTo.setTypeId(0);
-		} else {
-			if(blockFlowEvents.contains(count - 1)){
-				blockFlowEvents.remove(count - 1);
-			}
-		}
-	}
-	
-	
 	public void onBlockIgnite(BlockIgniteEvent event){
 		Player p = event.getPlayer();
 		World w = event.getBlock().getLocation().getWorld();
@@ -111,19 +51,19 @@ public class RegiosBlockListener extends BlockListener{
 		if(p != null){
 			if(!p.isOp() && !(Regios.hasPermissions && Regios.permissionHandler.has(p, "regios.bypass-protection"))){
 				if(!ConfigurationSettings.fireEnabled[index - 1]){
-					ExtinguishFire(event.getBlock().getFace(BlockFace.NORTH));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.EAST));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.SOUTH));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.WEST));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.UP));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.DOWN));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.NORTH));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.EAST));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.SOUTH));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.WEST));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.UP));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.DOWN));
 					event.setCancelled(true);
-					ExtinguishFire(event.getBlock().getFace(BlockFace.NORTH));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.EAST));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.SOUTH));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.WEST));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.UP));
-					ExtinguishFire(event.getBlock().getFace(BlockFace.DOWN));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.NORTH));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.EAST));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.SOUTH));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.WEST));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.UP));
+					ExtinguishFire(event.getBlock().getRelative(BlockFace.DOWN));
 					//p.sendMessage(ChatColor.RED + "[Regios] Fire is disabled on this world!");
 					return;
 				}
@@ -139,12 +79,12 @@ public class RegiosBlockListener extends BlockListener{
 			if( (((blockLoc.getY() <= RegiosFileManager.regiony1[i - 1] + 2) && (blockLoc.getY() >= RegiosFileManager.regiony2[i - 1] - 1)) || ((blockLoc.getY() >= RegiosFileManager.regiony1[i - 1] - 1) && (blockLoc.getY() <= RegiosFileManager.regiony2[i - 1] + 2))) && (((blockLoc.getZ() <= RegiosFileManager.regionz1[i - 1]) && (blockLoc.getZ() >= RegiosFileManager.regionz2[i - 1])) || ((blockLoc.getZ() >= RegiosFileManager.regionz1[i - 1]) && (blockLoc.getZ() <= RegiosFileManager.regionz2[i - 1])))  &&  (((blockLoc.getX() <= RegiosFileManager.regionx1[i - 1]) && (blockLoc.getX() >= RegiosFileManager.regionx2[i - 1])) || ((blockLoc.getX() >= RegiosFileManager.regionx1[i - 1]) && (blockLoc.getX() <= RegiosFileManager.regionx2[i - 1]))) && (((blockLoc.getX() <= RegiosFileManager.regionx1[i - 1]) && (blockLoc.getX() >= RegiosFileManager.regionx2[i - 1])) || ((blockLoc.getX() >= RegiosFileManager.regionx1[i - 1]) && (blockLoc.getX() <= RegiosFileManager.regionx2[i - 1])))   ){
 					if(RegiosFileManager.regionProtected[i - 1] && wn.equalsIgnoreCase(RegiosFileManager.regionWorldName[i - 1])){
 						event.setCancelled(true);
-						ExtinguishFire(event.getBlock().getFace(BlockFace.NORTH));
-						ExtinguishFire(event.getBlock().getFace(BlockFace.EAST));
-						ExtinguishFire(event.getBlock().getFace(BlockFace.SOUTH));
-						ExtinguishFire(event.getBlock().getFace(BlockFace.WEST));
-						ExtinguishFire(event.getBlock().getFace(BlockFace.UP));
-						ExtinguishFire(event.getBlock().getFace(BlockFace.DOWN));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.NORTH));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.EAST));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.SOUTH));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.WEST));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.UP));
+						ExtinguishFire(event.getBlock().getRelative(BlockFace.DOWN));
 						event.setCancelled(true);
 					}
 			}
@@ -209,8 +149,6 @@ public class RegiosBlockListener extends BlockListener{
 public void onBlockPlace(BlockPlaceEvent event){
 		
 		Player player = event.getPlayer();
-		Material block = event.getBlock().getType();
-		Block blockPlaced = event.getBlockPlaced();
 		Location location = event.getBlock().getLocation();
 		World w = event.getBlock().getLocation().getWorld();
 		
@@ -251,28 +189,12 @@ public void onBlockPlace(BlockPlaceEvent event){
 		playerRegionIndex.put(player, 1);
 		}
 		
-		String wn = event.getBlockPlaced().getWorld().getName();
 		String pwn = event.getPlayer().getLocation().getWorld().getName();
 		
 		playerLocation.put(player, location);		
 		playerInsideRegion.put(player, false);
 		
 		playerCanBuild.put(player, false);
-		
-		boolean triedLava = false, triedWater = false;
-		
-		/*if(!player.isOp() || (Regios.hasPermissions && !(Regios.permissionHandler.has(player, "regios.override")))){
-		for(Material material : RegiosFileManager.IllegalBlocks){
-			  if(block == material){
-				  player.sendMessage(ChatColor.RED + "You are prohibited from using " + ChatColor.AQUA + block);
-				  if(block == Material.TNT){
-					  event.getBlock().setType(Material.AIR);
-				  }
-				  event.setCancelled(true);
-			  }
-			}
-		}*/
-		
 		
 		for(i = 1; i <= RegiosFileManager.regionCount; i++){
 			
@@ -393,7 +315,7 @@ public void onBlockPlace(BlockPlaceEvent event){
 	public void onSignChange(SignChangeEvent event){
 		if(Regios.iConomyEnabled){
 			boolean regionSign = false;
-			int price = 0; int rentPeriod = 0;
+			int price = 0;
 			String region = null;
 			Player player = event.getPlayer();
 				if(event.getLine(0).contains("[Regios]")){
@@ -433,10 +355,8 @@ public void onBlockPlace(BlockPlaceEvent event){
 	public void onBlockBreak(BlockBreakEvent event){
 		
 		Player player = event.getPlayer();
-		Material block = event.getBlock().getType();
 		Location location = event.getBlock().getLocation();
 		
-		String wn = event.getBlock().getWorld().getName();
 		String pwn = event.getPlayer().getLocation().getWorld().getName();
 		
 		int i;

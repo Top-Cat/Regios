@@ -1,11 +1,7 @@
 package me.Adamki11s.Regios;
 
 import org.bukkit.World;
-import org.bukkit.entity.Weather;
-import org.bukkit.event.Event.Type;
 import org.bukkit.event.weather.LightningStrikeEvent;
-import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.event.weather.WeatherEvent;
 import org.bukkit.event.weather.WeatherListener;
 
 import couk.Adamki11s.WorldConfiguration.ConfigurationSettings;

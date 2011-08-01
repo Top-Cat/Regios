@@ -1,28 +1,17 @@
 package me.Adamki11s.Regios;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
-import org.bukkit.event.painting.PaintingBreakEvent;
 
 import couk.Adamki11s.WorldConfiguration.ConfigurationSettings;
 
@@ -34,9 +23,6 @@ public class RegiosEntityListener extends EntityListener {
 	public RegiosEntityListener(Regios instance) {
 		plugin = instance;
 	}
-	
-	
-	private static Location entityLocation;
 	
 	public void onExplosionPrime(ExplosionPrimeEvent event){
 		

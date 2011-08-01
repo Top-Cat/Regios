@@ -15,69 +15,11 @@ public class RegiosScheduler implements Runnable {
 	
 	public static Regios plugin;
 	
-	private int blockFlowCheck = 0;
-	
 	public RegiosScheduler(Regios instance) {
 		plugin = instance;
 	}
 	
 	public static ArrayList<Player> onlinePlayers = new ArrayList<Player>();
-	
-	private static int mobRemovalCount = 0;
-	
-	private static double regionXWidth(int index){
-		double x1 = RegiosFileManager.regionx1[index - 1], x2 = RegiosFileManager.regionx2[index - 1];
-		if(x1 > x2){
-			return (x1 - x2) / 2;
-		} else {
-			return (x2 - x1) / 2;
-		}
-	}
-	
-	private static double regionZWidth(int index){
-		double z1 = RegiosFileManager.regionz1[index - 1], z2 = RegiosFileManager.regionz2[index - 1];
-		if(z1 > z2){
-			return (z1 - z2) / 2;
-		} else {
-			return (z2 - z1) / 2;
-		}
-	}
-	
-	private static double regionYWidth(int index){
-		double y1 = RegiosFileManager.regiony1[index - 1], y2 = RegiosFileManager.regiony2[index - 1];
-		if(y1 > y2){
-			return (y1 - y2) / 2;
-		} else {
-			return (y2 - y1) / 2;
-		}
-	}
-	
-	private static boolean x1Bigger(int index){
-		double x1 = RegiosFileManager.regionx1[index - 1], x2 = RegiosFileManager.regionx2[index - 1];
-		if(x1 > x2){
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private static boolean y1Bigger(int indey){
-		double y1 = RegiosFileManager.regiony1[indey - 1], y2 = RegiosFileManager.regiony2[indey - 1];
-		if(y1 > y2){
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private static boolean z1Bigger(int indez){
-		double z1 = RegiosFileManager.regionz1[indez - 1], z2 = RegiosFileManager.regionz2[indez - 1];
-		if(z1 > z2){
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	//public static Thread fluidThread = new Thread();
 	

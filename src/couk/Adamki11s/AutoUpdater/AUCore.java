@@ -28,16 +28,9 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.logging.Logger;
-
-import org.bukkit.Server;
-import org.bukkit.plugin.Plugin;
-
 
 public class AUCore{
 
